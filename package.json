@@ -1,6 +1,6 @@
 {
   "name": "ffffff-bot",
-  "version": "2.11.7",
+  "version": "2.12.0",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

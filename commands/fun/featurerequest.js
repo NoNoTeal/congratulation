@@ -31,7 +31,7 @@ if(!req.length > 10) return message.channel.send(`Please put your request higher
 else
 
 if(!message.guild.members.get(`329023088517971969`)) {
-    message.channel.send(`Bot owner isn't in the server, request @ <https://github.com/NoNoTeal/blast-source-code/issues>`)
+    message.channel.send(`Bot owner isn't in the server, request @ <https://github.com/NoNoTeal/congratulation/issues>`)
 }
 
 else
@@ -43,7 +43,7 @@ var embed = new Discord.RichEmbed()
     .setDescription(`${req}`)
     .setTimestamp()
 
-if(fr.size == 0) return message.channel.send(`No users detected, request @ <https://github.com/NoNoTeal/blast-source-code/issues>`)
+if(fr.size == 0) return message.channel.send(`No users detected, request @ <https://github.com/NoNoTeal/congratulation/issues>`)
 
 frusers.forEach(async (id)  => {
     var user = message.guild.members.get(id)
