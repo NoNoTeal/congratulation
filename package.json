@@ -1,0 +1,29 @@
+{
+  "name": "ffffff-bot",
+  "version": "2.11.6",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "xTeal",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "discord-bot-updater": "^1.0.3",
+    "discord.js": "^11.5.1",
+    "discord.js-commando": "^0.10.0",
+    "file-system": "^2.2.2"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nonoteal/congratulation.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nonoteal/congratulation/issues"
+  },
+  "homepage": "https://github.com/nonoteal/congratulation#readme",
+  "description": ""
+}

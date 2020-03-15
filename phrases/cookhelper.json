@@ -1,0 +1,17 @@
+{
+    "pans": [
+    "frying pan",
+    "cast iron skillet",
+    "dutch oven",
+    "nonstick pan"
+            ],
+    "objects": [
+        "eggs",
+        "ham",
+        "bacon",
+        "spinach",
+        "fruit",
+        "vegetables",
+        "client mods"
+    ]
+}
