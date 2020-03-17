@@ -7,8 +7,7 @@ module.exports = bot => {
 
     let statuses = [
         `${config.prefix}help for help!`,
-        `Version ${pkg.version}`,
-        `This is a control version to see if >>update works`
+        `Version ${pkg.version}`
     ]
 setInterval(() => {     
 

@@ -26,7 +26,7 @@ class help extends Commando.Command {
 				.setTitle(`Help Command`, true)
 				.addField(`Prefix`, `**${botconfig.prefix}**`, true)
 				.addField(`Exclusive to`, `**${message.client.guilds.get(botconfig.server).name}**`, true)
-				.addField(`Version`, `**${pkg.version}hhihiihii**`)
+				.addField(`Version`, `**${pkg.version}**`)
 				.addField(`Role required`, `<@&${message.guild.roles.get(botconfig.trustedroles[0]).id}>`, true)
 				.addBlankField()
 				.addField(`**${botconfig.prefix}dice** <number>`, `Roll the dice.`, true)
