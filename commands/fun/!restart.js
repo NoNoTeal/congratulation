@@ -25,7 +25,7 @@ else
 
   message.channel.send(`Attempting to restart bot.`)
 var npm = "npm i"
-var run = "node .";
+var run = "node ./";
   var { exec } = require('child_process')
   message.client.destroy();
   exec(npm, function() {

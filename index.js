@@ -32,6 +32,12 @@ client.on('guildCreate', async (guild) => {
      guild.leave()
      throw new Error(`There is a guild limit of 1, just for the server I'm supposed to be in. Leaving guild.`)
   }})
+
+  client.on('ready', async () => {
+    if(client.guilds.size > 1) {
+     client.destroy()
+     throw new Error(`There is a guild limit of 1, just for the server I'm supposed to be in only one. Killing client until I am only in one guild`)
+  }})
   
   client.on('ready', async () => {
     if(botconfig.prefix.length >= 5) {

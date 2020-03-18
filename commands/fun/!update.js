@@ -27,7 +27,7 @@ updater.downloadRelease('nonoteal', 'congratulation', true, true, 0, ['./botconf
   message.channel.send(`Attempting to reset bot.`)
   console.log(r)
 var npm = "npm i"
-var run = "node .";
+var run = "node ./";
 
   var { exec } = require('child_process')
   message.client.destroy();
