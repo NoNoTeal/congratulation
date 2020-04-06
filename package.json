@@ -1,6 +1,6 @@
 {
   "name": "ffffff-bot",
-  "version": "2.13.0",
+  "version": "2.14.0",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,8 +10,8 @@
   "dependencies": {
     "discord-bot-updater": "^1.0.4",
     "discord.js": "^11.5.1",
-    "discord.js-commando": "^0.10.0",
-    "file-system": "^2.2.2"
+    "file-system": "^2.2.2",
+    "require-all": "^3.0.0"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"

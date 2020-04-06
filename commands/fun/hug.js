@@ -1,26 +1,14 @@
 const Discord = require(`discord.js`);
-const Commando = require(`discord.js-commando`);
 const botconfig = require(`../../botconfig.json`);
 
-class hug extends Commando.Command{
-    constructor(client) {
-        super(client, {
-            name: 'hug',
-            group: 'fun',
-            memberName: 'hug',
-            description: 'hug',
-            throttling:{
-                usages: 2,
-                duration: 10
-            }
-        })
-    }
+module.exports = {
+    name: "hug",
+    group: "fun",
+    command: true,
+    guildOnly: true,
+cooldown: 10,
 async run(message) {
 
-if(message.author.bot) return message.channel.send(`I'm sorry, but two bots hugging are NOT a thing!`)
-else
-if(message.channel instanceof Discord.DMChannel) return message.channel.send(`Who are you going to hug in a DM channel?!`)
-else
 
 if(message.member.roles.some(r => botconfig.trustedroles.includes(r.id)) !== true && botconfig.trustedroles !== null && !message.member.hasPermission(['ADMINISTRATOR'])) return message.channel.send(`Hmm, doesn't seem you have the role required to hug.`)
 else
@@ -43,5 +31,3 @@ if(c.length == 0) return message.channel.send(`${message.author} hugged.`)
 message.channel.send(`Hey ${c.join(', ')}, ${message.author.tag} just gave you a great big hug! 🤗`)
 
 }}
-
-module.exports = hug;

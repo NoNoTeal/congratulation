@@ -1,24 +1,13 @@
-const Discord = require(`discord.js`);
-const Commando = require(`discord.js-commando`);
-const botconfig = require(`../../botconfig.json`);
 
-class pat extends Commando.Command{
-    constructor(client) {
-        super(client, {
-            name: 'pat',
-            group: 'fun',
-            memberName: 'pat',
-            description: 'eri',
-            throttling:{
-                usages: 2,
-                duration: 10
-            }
-        })
-    }
+const botconfig = require(`../../botconfig.json`);
+module.exports = {
+    name: "pat",
+    group: "fun",
+    command: true,
+    guildOnly: true,
+cooldown: 10,
 async run(message) {
 
-if(message.channel instanceof Discord.DMChannel) return
-else
 
 if(message.member.roles.some(r => botconfig.trustedroles.includes(r.id)) !== true && botconfig.trustedroles !== null && !message.member.hasPermission(['ADMINISTRATOR'])) return message.channel.send(`Hmm, doesn't seem you have the role required to pat.`)
 else
@@ -39,5 +28,3 @@ message.channel.send(`\`${message.author.tag}\` proceeds to pat \`${user.user.ta
 
 
 }}
-
-module.exports = pat;

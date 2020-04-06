@@ -1,20 +1,9 @@
-const Discord = require(`discord.js`);
-const Commando = require(`discord.js-commando`);
-const botconfig = require(`../../botconfig.json`);
-
-class mock extends Commando.Command{
-    constructor(client) {
-        super(client, {
-            name: 'mock',
-            group: 'fun',
-            memberName: 'mock',
-            description: 'mock',
-            throttling:{
-                usages: 2,
-                duration: 10
-            }
-        })
-    }
+module.exports = {
+    name: "mock",
+    group: "fun",
+    command: true,
+    guildOnly: true,
+cooldown: 10,
 async run(message) {
 
 message.react(`⚠`)
@@ -54,5 +43,3 @@ hook.send(text).then(async (m)  => {m.delete()}, 20000)
 await hook.delete()
 */
 }}
-
-module.exports = mock;

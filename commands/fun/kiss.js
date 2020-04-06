@@ -1,26 +1,13 @@
 const Discord = require(`discord.js`);
-const Commando = require(`discord.js-commando`);
 const botconfig = require(`../../botconfig.json`);
 
-class kiss extends Commando.Command{
-    constructor(client) {
-        super(client, {
-            name: 'kiss',
-            group: 'fun',
-            memberName: 'kiss',
-            description: 'kiss',
-            throttling:{
-                usages: 2,
-                duration: 10
-            }
-        })
-    }
+module.exports = {
+    name: "kiss",
+    group: "fun",
+    command: true,
+    guildOnly: true,
+cooldown: 10,
 async run(message) {
-
-if(message.author.bot) return message.channel.send(`I'm sorry, but two bots kissing are NOT a thing!`)
-else
-if(message.channel instanceof Discord.DMChannel) return message.channel.send(`Who are you going to kiss in a DM channel?!`)
-else
 
 if(message.member.roles.some(r => botconfig.trustedroles.includes(r.id)) !== true && botconfig.trustedroles !== null && !message.member.hasPermission(['ADMINISTRATOR'])) return message.channel.send(`Hmm, doesn't seem you have the role required to kiss.`)
 else
@@ -40,5 +27,3 @@ else
 message.channel.send(`Hey <@${user.id}>, ${message.author.tag} just gave you a great big kiss! 😘`)
 
 }}
-
-module.exports = kiss;

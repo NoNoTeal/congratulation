@@ -1,26 +1,13 @@
 const Discord = require(`discord.js`);
-const Commando = require(`discord.js-commando`);
 const botconfig = require(`../../botconfig.json`);
 
-class dice extends Commando.Command{
-    constructor(client) {
-        super(client, {
-            name: 'dice',
-            group: 'fun',
-            memberName: 'dice',
-            description: 'dice',
-            throttling:{
-                usages: 2,
-                duration: 10
-            }
-        })
-    }
-async run(message) {
+module.exports = {
+    name: "dice",
+    group: "fun",
+    command: true,
+    guildOnly: true,
 
-if(message.author.bot) return 
-else
-if(message.channel instanceof Discord.DMChannel) return
-else
+async run(message) {
 
 if(message.member.roles.some(r => botconfig.trustedroles.includes(r.id)) !== true && botconfig.trustedroles !== null && !message.member.hasPermission(['ADMINISTRATOR'])) return message.channel.send(`Hmm, doesn't seem you have the role required to throw die.`)
 else
@@ -49,5 +36,3 @@ var embed = new Discord.RichEmbed()
 message.channel.send(embed)
 
 }}
-
-module.exports = dice;

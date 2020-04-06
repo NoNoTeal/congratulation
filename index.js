@@ -1,31 +1,19 @@
 var Discord = require('discord.js')
 var thing = require('discord.js/src/util/Constants')
-var Commando = require('discord.js-commando')
 var botconfig = require('./botconfig.json')
-var client = new Commando.Client({
+var client = new Discord.Client({
     disableEveryone: true,
     owner: `${botconfig.owner}`,
-    unknownCommandResponse: false,
-    commandPrefix: `${botconfig.prefix}`
 })
+client.commands = new Discord.Collection();
+client.cmdDir = new Discord.Collection();
+const prefix = botconfig.prefix.toLowerCase()
 if(botconfig.mobile == true) {
 thing.DefaultOptions.ws.properties.$browser = 'Discord iOS'
 }
 require("./util/eventhandler")(client)
-client.registry.registerGroup('fun', 'Fun');
-client.registry.registerGroup('util','Util');
-client.registry.registerDefaultTypes()
-client.registry.registerDefaultGroups();
-client.registry.registerDefaultCommands({
-  help: false,
-  prefix: true,
-  eval_: true,
-  ping: true
-});
 const pkg = require('./package.json')
-const emojis = require('./commandhelper/emojis.json')
 const fs = require('fs');
-client.registry.registerCommandsIn(__dirname + "/commands");
   client.login(botconfig.token)
 client.on('guildCreate', async (guild) => {
     if(client.guilds.size > 1) {
@@ -78,51 +66,81 @@ client.on('guildCreate', async (guild) => {
   
   })
 
-  client.on('ready', async () => {
-    
-    if(!botconfig.server) return
-    if(!client.guilds.get(botconfig.server).channels.get(botconfig.reactionarychannel)) return
-    else
-var c = client.guilds.get(botconfig.server).channels.get(botconfig.reactionarychannel)
-    setInterval(async () => {
-      let gamer = JSON.parse(fs.readFileSync("./commandhelper/reactionary.json", "utf8"))
+function cmdSetup() {
+var files = fs.readdirSync('./commands/').filter(n => n !== '.DS_Store')
+files.forEach(async (folder) => {
+  var cmdfolder = Object.values(require('require-all')(__dirname + `/commands/${folder}`))
+  var filename = Object.keys(require('require-all')(__dirname + `/commands/${folder}`))
+  for(var key in cmdfolder) {
+  if(!cmdfolder[key].name) throw new Error(`Name all commands.`)
+  if(!cmdfolder[key].group) throw new Error(`Group command for: ${key.name}`)
+  var file = require(`./commands/${folder}/${filename[key]}`)
+  if(file.command !== true) continue
+  else 
 
-      let shuffled = emojis.sort(() => 0.5 - Math.random());
-      let selected = shuffled.slice(0, 5);
-      let correct = selected[Math.floor(Math.random() * selected.length)]
+  file.fileName = filename[key]
+  file.group = folder
 
-      var game = await c.send(`React with one of these 5 emotes: ${selected.join(`, `)}`)
-      if(!gamer.globalgame) gamer.globalgame = 0
-      else
-      
-      gamer.globalgame++;
-      fs.writeFile("./commandhelper/reactionary.json", JSON.stringify(gamer, null, `\t`),(err) => {
-        if(err) console.log(err);
-    });
-      var filter = (reaction) => reaction.emoji.name === correct
-      var collecter = await game.createReactionCollector(filter, { time: 60000 })
+  client.commands.set(file.name, file);
+  client.cmdDir.set(file.name, `${folder}/${filename[key]}`)
+  }
+
+})}
+
+cmdSetup()
+const cooldowns = new Discord.Collection();
+client.on('message', async (message) => {
+	if (!message.content.startsWith(prefix) || message.author.bot) return;
+
+	const args = message.content.slice(prefix.length).split(/\s+/);
+  const commandName = args.shift().toLowerCase();
+  if(typeof client.commands.get(commandName) == 'string') return;
+  const command = client.commands.get(commandName) 
+      || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+
+  if (!command) return message.channel.send(`Invalid command do \`${prefix}help\` to get help.`)
+  const cmdfile = client.cmdDir.get(command.name)
+
+  var blacklist = JSON.parse(fs.readFileSync("./commandhelper/blacklist.json", 'utf8'))
+  if(Object.keys(blacklist).length) {
+    var busers = blacklist.blacklist.users
+    for(var buser in busers) {
+      if(message.member.id == busers[buser]) return message.channel.send(`You're blacklisted.`)
+    }
+  } else
+
+    if(command.guildOnly == true) {
+      if(message.channel instanceof Discord.DMChannel) {
+    return message.channel.send(`Do this in a guild.`);
+      }
+    }
 
 
+    if (!cooldowns.has(command.name)) {
+      cooldowns.set(command.name, new Discord.Collection());
+    }
+  
+  const now = Date.now();
+  const timestamps = cooldowns.get(command.name);
+  const cooldownAmount = (command.cooldown || 3) * 1000;
+  if (timestamps.has(message.author.id)) {
+    const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
+  
+    if (now < expirationTime) {
+      const timeLeft = (expirationTime - now) / 1000;
+      return message.channel.send(`Wait \`${timeLeft.toFixed(1)}\` before doing the \`${botconfig.prefix}${command.name}\` command again.`).then(m => {m.delete({timeout: 10000})})
+    }
+  }
 
-      collecter.on('collect', async(r) => {
-        c.send(`It seems <@${r.users.first().id}> has won! (Correct emote: ${correct})`)
-
-        if(!gamer[r.users.first().id]) gamer[r.users.first().id] = 0
-        else
-        gamer[r.users.first().id]++;
-        fs.writeFile("./commandhelper/reactionary.json", JSON.stringify(gamer, null, `\t`),(err) => {
-          if(err) console.log(err);
-      });
-        collecter.stop()
-
-    })
-      collecter.on('end', () => {
-        game.edit(`~~React with one of these 5 emotes: ${selected.join(`, `)}, ~~Correct Emoji: ${correct}.`)
-        setTimeout(() => {
-          if(game.deleted !== false) return
-          else
-          game.delete()
-        }, 120000);
-      })
-    }, 3.6e+6);
-  })
+  timestamps.set(message.author.id, now);
+  setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
+try {
+  delete require.cache[require.resolve(`./commands/${cmdfile}.js`)]
+  var nCMD = require(`./commands/${cmdfile}.js`)
+  client.commands.set(nCMD.name, nCMD)
+  nCMD.run(message)
+} catch (error) {
+	console.error(error);
+  message.react(`⚠️`)
+}
+})

@@ -8,8 +8,6 @@
     "server": "server id",
 
     "trustedroles": [""],
-
-    "reactionarychannel":"channelid",
     
     "mobile":true
 }

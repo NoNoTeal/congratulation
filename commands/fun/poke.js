@@ -1,19 +1,12 @@
-const commando = require('discord.js-commando')
 const Discord = require('discord.js')
 const botconfig = require('./../../botconfig.json')
 
-class Poke extends commando.Command{
-    constructor(client){
-        super(client, {
-            name: 'poke',
-            memberName:'poke',
-            group:"fun",
-            description:"poke",
-            throttling:{
-                usages: 2,
-                duration: 10
-            }
-        })}
+module.exports = {
+    name: "poke",
+    group: "fun",
+    command: true,
+    guildOnly: true,
+    cooldown: 10,
     async run(message) {
 if(message.channel instanceof Discord.DMChannel) return
 else
@@ -32,4 +25,3 @@ else
 message.channel.send(`<@${user.id}>, POKE! ||From ${message.author.username}||`)
     }
 }
-module.exports = Poke;

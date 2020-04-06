@@ -1,26 +1,14 @@
 const Discord = require(`discord.js`);
-const Commando = require(`discord.js-commando`);
 const botconfig = require(`../../botconfig.json`);
 
-class nerdpole extends Commando.Command{
-    constructor(client) {
-        super(client, {
-            name: 'nerdpole',
-            group: 'fun',
-            memberName: 'nerdpole',
-            description: 'nerdpole',
-            throttling:{
-                usages: 2,
-                duration: 10
-            }
-        })
-    }
+module.exports = {
+    name: "nerdpole",
+    group: "fun",
+    command: true,
+    guildOnly: true,
+cooldown: 10,
 async run(message) {
 
-if(message.author.bot) return 
-else
-if(message.channel instanceof Discord.DMChannel) return
-else
 
 if(message.member.roles.some(r => botconfig.trustedroles.includes(r.id)) !== true && botconfig.trustedroles !== null && !message.member.hasPermission(['ADMINISTRATOR'])) return message.channel.send(`Hmm, doesn't seem you have the role required to call someone a nerdpole.`)
 else
@@ -52,5 +40,3 @@ var embed = new Discord.RichEmbed()
 message.channel.send(embed)
 
 }}
-
-module.exports = nerdpole;

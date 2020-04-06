@@ -1,27 +1,13 @@
-const Discord = require(`discord.js`);
-const Commando = require(`discord.js-commando`);
 const botconfig = require(`../../botconfig.json`);
 const fliphelper = require(`../../phrases/fliphelper.json`)
 
-class flip extends Commando.Command{
-    constructor(client) {
-        super(client, {
-            name: 'flip',
-            group: 'fun',
-            memberName: 'flip',
-            description: 'flip',
-            throttling:{
-                usages: 2,
-                duration: 10
-            }
-        })
-    }
+module.exports = {
+    name: "flip",
+    group: "fun",
+    command: true,
+    guildOnly: true,
+cooldown: 10,
 async run(message) {
-
-if(message.author.bot) return 
-else
-if(message.channel instanceof Discord.DMChannel) return message.channel.send(`Who are you going to flip in a DM channel?!`)
-else
 
 if(message.member.roles.some(r => botconfig.trustedroles.includes(r.id)) !== true && botconfig.trustedroles !== null && !message.member.hasPermission(['ADMINISTRATOR'])) return message.channel.send(`Hmm, doesn't seem you have the role required to flip.`)
 else
@@ -66,5 +52,3 @@ var phrase = phrases[Math.floor(Math.random() * phrases.length)]
 message.channel.send(phrase)
 
 }}
-
-module.exports = flip;

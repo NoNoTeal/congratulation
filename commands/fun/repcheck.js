@@ -1,27 +1,16 @@
 const Discord = require(`discord.js`);
-const Commando = require(`discord.js-commando`);
 const botconfig = require(`../../botconfig.json`);
 const fs = require("fs");
 
-class repcheck extends Commando.Command{
-    constructor(client) {
-        super(client, {
-            name: 'repcheck',
-            group: 'fun',
-            memberName: 'repcheck',
-            description: 'repcheck',
-            throttling:{
-                usages: 1,
-                duration: 10
-            }
-        })
-    }
+module.exports = {
+    name: "repcheck",
+    group: "fun",
+    command: true,
+    guildOnly: true,
+    cooldown: 10,
 async run(message) {
 
     let replist = JSON.parse(fs.readFileSync("./commandhelper/rep.json", "utf8"))
-
-if(message.channel instanceof Discord.DMChannel) return message.channel.send(`Who are you going to give a rep to in a DM channel?!`)
-else
 
 if(message.member.roles.some(r => botconfig.trustedroles.includes(r.id)) !== true && botconfig.trustedroles !== null && !message.member.hasPermission(['ADMINISTRATOR'])) return message.channel.send(`Hmm, doesn't seem you have the role required to rep.`)
 else
@@ -52,5 +41,3 @@ Last rep: ${message.guild.members.get(replist[user.id].prevrep).user.tag}
 \`\`\``)
 
 }}
-
-module.exports = repcheck;

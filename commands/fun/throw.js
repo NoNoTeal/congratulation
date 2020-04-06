@@ -1,21 +1,12 @@
-var discord = require('discord.js');
-var commando = require('discord.js-commando');
+
 var botconfig = require('./../../botconfig.json')
 
-class Throw extends commando.Command{
-    constructor(client) {
-        super(client, {
-            name: 'throw',
-            memberName: 'throw',
-            description: 'throw',
-            group: 'fun',
-            throttling: {
-                usages: 2,
-                duration: 10
-            },
-            guildOnly: true
-        })
-    }
+module.exports = {
+    name: "throw",
+    group: "fun",
+    command: true,
+    guildOnly: true,
+    cooldown: 10,
     async run(message) {
         if(message.member.roles.some(r => botconfig.trustedroles.includes(r.id)) !== true && botconfig.trustedroles !== null && !message.member.hasPermission(['ADMINISTRATOR'])) return message.channel.send(`Hmm, doesn't seem you have the role required to throw people.`)
         else
@@ -41,4 +32,3 @@ class Throw extends commando.Command{
         message.channel.send(response)
     }
 }
-module.exports = Throw;

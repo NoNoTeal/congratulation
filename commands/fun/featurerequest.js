@@ -1,26 +1,13 @@
 const Discord = require(`discord.js`);
-const Commando = require(`discord.js-commando`);
 const frusers = require('../../frusers.json')
 
-class fr extends Commando.Command{
-    constructor(client) {
-        super(client, {
-            name: 'fr',
-            group: 'fun',
-            memberName: 'fr',
-            description: 'fr',
-            throttling:{
-                usages: 1,
-                duration: 20
-            }
-        })
-    }
+module.exports = {
+    name: "fr",
+    group: "fun",
+    command: true,
+    guildOnly: true,
+cooldown: 10,
 async run(message) {
-
-if(message.author.bot) return 
-else
-if(message.channel instanceof Discord.DMChannel) return
-else
 
 var req = message.content.slice(1)
 
@@ -55,5 +42,3 @@ frusers.forEach(async (id)  => {
 await message.react(`☑`)
 
 }}
-
-module.exports = fr;

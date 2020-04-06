@@ -1,27 +1,14 @@
 const Discord = require("discord.js");
-const Commando = require("discord.js-commando");
 const botconfig = require("../../botconfig.json");
 
-class remind extends Commando.Command
-{
-    constructor(client) {
-        super(client, {
-            name: "remind",
-            group: "fun",
-            memberName: "remind",
-            description: "remind",
-            throttling: {
-                usages: 2,
-                duration: 10
-            },
-        })
-    }
+module.exports = {
+    name: "poke",
+    group: "fun",
+    command: true,
+    guildOnly: true,
+    cooldown: 10,
 async run(message) {
 
-    if(message.author.bot) return
-    else
-  if (message.channel instanceof Discord.DMChannel) return 
-  else
   var args = message.content.split(/ +/).slice(1);
   let time = args[0];
 
@@ -76,4 +63,3 @@ clearInterval(int)
 
 
 }}
-module.exports = remind;

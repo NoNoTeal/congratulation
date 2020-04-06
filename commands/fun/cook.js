@@ -1,27 +1,14 @@
 const Discord = require(`discord.js`);
-const Commando = require(`discord.js-commando`);
 const botconfig = require(`../../botconfig.json`);
 const cookhelper = require(`../../phrases/cookhelper.json`);
 
-class cook extends Commando.Command{
-    constructor(client) {
-        super(client, {
-            name: 'cook',
-            group: 'fun',
-            memberName: 'cook',
-            description: 'cook',
-            throttling:{
-                usages: 2,
-                duration: 10
-            }
-        })
-    }
+module.exports = {
+    name: "cook",
+    group: "fun",
+    command: true,
+    guildOnly: true,
+cooldown: 10,
 async run(message) {
-
-if(message.author.bot) return message.channel.send(`I'm sorry, but two bots cooking each other are NOT a thing! (They are but for me, no...)`)
-else
-if(message.channel instanceof Discord.DMChannel) return message.channel.send(`Who are you going to cook in a DM channel?!`)
-else
 
 if(message.member.roles.some(r => botconfig.trustedroles.includes(r.id)) !== true && botconfig.trustedroles !== null && !message.member.hasPermission(['ADMINISTRATOR'])) return message.channel.send(`Hmm, doesn't seem you have the role required to cook.`)
 else
@@ -54,5 +41,3 @@ var phrase = phrases[Math.floor(Math.random() * phrases.length)]
 message.channel.send(phrase)
 
 }}
-
-module.exports = cook;

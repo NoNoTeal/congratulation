@@ -1,26 +1,14 @@
-const Discord = require(`discord.js`);
-const Commando = require(`discord.js-commando`);
+
 const fs = require('fs')
 
-class frrem extends Commando.Command{
-    constructor(client) {
-        super(client, {
-            name: 'frrem',
-            group: 'fun',
-            memberName: 'frrem',
-            description: 'frrem',
-            throttling:{
-                usages: 1,
-                duration: 10
-            }
-        })
-    }
+module.exports = {
+    name: "frrem",
+    group: "fun",
+    command: true,
+    guildOnly: true,
+cooldown: 10,
 async run(message, args) {
 
-if(message.author.bot) return 
-else
-if(message.channel instanceof Discord.DMChannel) return
-else
 if(!message.member.hasPermission(['MANAGE_MESSAGES']) && message.author.id !== `329023088517971969`) return message.channel.send(`You cannot do this.`)
 
 
@@ -45,4 +33,3 @@ fs.writeFile("./frusers.json", JSON.stringify(dmusers, null, `\t`),(err) => {
 await message.react(`☑`)
 
 }}
-module.exports = frrem;

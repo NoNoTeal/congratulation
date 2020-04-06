@@ -1,17 +1,7 @@
-# TEMPORARY
+# congratulation
 
-## What happened to blast-source-code?
+some random bot
 
-Taken down
+use node 10.8.0
 
-## When will a new blast release come out?
-
-When I can restart a bot & work on a few new features
-
-## Will you update to D.JS v12?
-
-No
-
-## Is blast renamed
-
-I renamed the repo to congratulation
+discord.js 11.5.2

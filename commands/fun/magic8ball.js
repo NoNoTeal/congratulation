@@ -1,27 +1,13 @@
 const { DMChannel, RichEmbed } = require("discord.js");
-const { Command } = require("discord.js-commando");
 const { trustedroles } = require(`../../botconfig.json`);
 const { phrases } = require("../../phrases/8ball");
 
-module.exports = class magic8ball extends Command {
-	constructor (client) {
-		super(client, {
-			name: "magic8ball",
-			group: "fun",
-			memberName: "magic8ball",
-			aliases: ["8ball"],
-			description: "Ask the magic 8 ball a question",
-			throttling: {
-				usages: 2,
-				duration: 10
-			},
-		});
-	}
-
+module.exports = {
+    name: "8ball",
+    group: "fun",
+    command: true,
+    guildOnly: true,
     async run(message) {
-
-		if (message.author.bot) return;
-		if (message.channel instanceof DMChannel) return;
 
 		if (message.member.roles.some((r) => trustedroles.includes(r.id)) !== true &&
 			trustedroles !== null &&
@@ -40,5 +26,4 @@ module.exports = class magic8ball extends Command {
 				.setTitle(randPhrase())
 				.setDescription(`>>> ${args.join(" ")}`)
 		});
-	};
-};
+	}}
