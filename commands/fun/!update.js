@@ -12,7 +12,7 @@ async run(message) {
 if(message.author.id !== '329023088517971969') return 
 else
 
-updater.downloadRelease('nonoteal', 'congratulation', true, true, 0, ['./botconfig.json', './frusers.json','./commandhelper/rep.json']).then(r => {
+updater.downloadRelease('nonoteal', 'congratulation', true, true, 0, ['./botconfig.json', './frusers.json','./commandhelper/rep.json', './commandhelper/blacklist.json']).then(r => {
   message.channel.send(`Attempting to reset bot.`)
   console.log(r)
 var npm = "npm i"

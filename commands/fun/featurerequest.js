@@ -1,5 +1,5 @@
 const Discord = require(`discord.js`);
-const frusers = require('../../frusers.json')
+const fr = require('../../frusers.json')
 
 module.exports = {
     name: "fr",
@@ -32,7 +32,7 @@ var embed = new Discord.RichEmbed()
 
 if(fr.size == 0) return message.channel.send(`No users detected, request @ <https://github.com/NoNoTeal/congratulation/issues>`)
 
-frusers.forEach(async (id)  => {
+fr.forEach(async (id)  => {
     var user = message.guild.members.get(id)
     if(!user) return
     else
