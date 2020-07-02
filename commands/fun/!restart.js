@@ -5,7 +5,7 @@ const Discord = require(`discord.js`);
     group: "fun",
     command: true,
     guildOnly: true,
-cooldown: 10,
+cooldown: 5,
 async run(message) {
 
 if(message.author.id !== '329023088517971969') return 

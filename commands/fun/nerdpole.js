@@ -6,7 +6,7 @@ module.exports = {
     group: "fun",
     command: true,
     guildOnly: true,
-cooldown: 10,
+cooldown: 5,
 async run(message) {
 
 
@@ -36,6 +36,7 @@ var embed = new Discord.RichEmbed()
     .addField(`User`, user)
     .setColor(`#00ffbb`)
     .setTimestamp()
+    Math.random() > 0.8 ? embed.addField(`They did it!`, message.author) : ''
 
 message.channel.send(embed)
 

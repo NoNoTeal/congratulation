@@ -6,7 +6,7 @@ module.exports = {
     group: "fun",
     command: true,
     guildOnly: true,
-    cooldown: 10,
+    cooldown: 5,
 async run(message) {
 if(message.member.roles.some(r => botconfig.trustedroles.includes(r.id)) !== true && botconfig.trustedroles !== null && !message.member.hasPermission(['ADMINISTRATOR'])) return message.channel.send(`Hmm, doesn't seem you have the role required to call someone a weeb.`)
 else
@@ -38,6 +38,7 @@ var embed = new Discord.RichEmbed()
     .addField(`Highest Role`,user.highestRole)
     .setColor(`#fcd303`)
     .setTimestamp()
+    Math.random() > 0.8 ? embed.addField(`They did it!`, message.author) : ''
 
 message.channel.send(embed)
 

@@ -4,7 +4,7 @@ var botconfig = require('./../../botconfig.json')
 module.exports = {
     name: 'blacklist',
     group: 'help',
-    cooldown: 10,
+    cooldown: 5,
     command: true,
     guildOnly: true,
     //how the fuk this worke

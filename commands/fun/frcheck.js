@@ -4,7 +4,7 @@ module.exports = {
     group: "fun",
     command: true,
     guildOnly: true,
-cooldown: 10,
+cooldown: 5,
 async run(message, args) {
 
 

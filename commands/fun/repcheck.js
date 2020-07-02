@@ -7,7 +7,7 @@ module.exports = {
     group: "fun",
     command: true,
     guildOnly: true,
-    cooldown: 10,
+    cooldown: 5,
 async run(message) {
 
     let replist = JSON.parse(fs.readFileSync("./commandhelper/rep.json", "utf8"))
