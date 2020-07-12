@@ -6,6 +6,7 @@ module.exports = {
     group: "fun",
     command: true,
     guildOnly: true,
+    description: 'Bake a person',
 cooldown: 5,
 async run(message) {
 

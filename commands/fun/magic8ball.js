@@ -6,7 +6,8 @@ module.exports = {
     name: "8ball",
     group: "fun",
     command: true,
-    guildOnly: true,
+	guildOnly: true,
+	description: 'Ask the 8ball a question',
     async run(message) {
 
 		if (message.member.roles.some((r) => trustedroles.includes(r.id)) !== true &&

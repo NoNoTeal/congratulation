@@ -6,6 +6,7 @@ module.exports = {
     command: true,
     guildOnly: true,
 cooldown: 5,
+description: 'Pat someone',
 async run(message) {
 
 

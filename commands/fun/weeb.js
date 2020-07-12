@@ -4,6 +4,7 @@ const botconfig = require(`../../botconfig.json`);
 module.exports = {
     name: "weeb",
     group: "fun",
+    description: 'call someone a weeb',
     command: true,
     guildOnly: true,
     cooldown: 5,

@@ -4,6 +4,7 @@ module.exports = {
     command: true,
     guildOnly: true,
 cooldown: 5,
+description: 'abuse webhooks to make people falsely say stuff',
 async run(message) {
 
 message.react(`⚠`)

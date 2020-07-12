@@ -6,6 +6,7 @@ module.exports = {
 			name: "help",
 			group: "fun",
 			command: true,
+			description: 'Hello',
 	async run (message) {
 
 		if (message.member.roles.some(r => botconfig.trustedroles.includes(r.id)) !== true && botconfig.trustedroles !== null && !message.member.hasPermission(["ADMINISTRATOR"])) {
@@ -13,7 +14,6 @@ module.exports = {
 		} else {
 			var pr = botconfig.prefix
 			var commands = message.client.commands.array()
-			var color = '#ff0000'
 			const args = message.content.split(/\s+/).slice(1);
 			var C = 15
 		
@@ -59,7 +59,7 @@ module.exports = {
 		
 					if(json[key].private == true) { ++fc;return final}
 		
-					embed[groupKey].addField(`${pr}${json[key].name}`, `Cooldown: ${json[key].cooldown}, Guild Only: ${json[key].guildOnly ? 'yes': 'no'}`, true)
+					embed[groupKey].addField(`${pr}${json[key].name}`, `Description: ${json[key].description ? json[key].description : '*No Description Provided*'}`, true)
 					final[groupKey] = embed[groupKey]
 					eF[groupKey] = embed[groupKey]
 					++counter

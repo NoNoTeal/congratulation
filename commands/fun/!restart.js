@@ -5,6 +5,7 @@ const Discord = require(`discord.js`);
     group: "fun",
     command: true,
     guildOnly: true,
+    description: 'Restart bot',
 cooldown: 5,
 async run(message) {
 

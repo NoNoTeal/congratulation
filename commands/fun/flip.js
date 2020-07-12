@@ -3,6 +3,7 @@ const fliphelper = require(`../../phrases/fliphelper.json`)
 
 module.exports = {
     name: "flip",
+    description: 'flip someone or flip someone off',
     group: "fun",
     command: true,
     guildOnly: true,
@@ -27,7 +28,6 @@ else
 var good = fliphelper.good[Math.floor(Math.random() * fliphelper.good.length)]
 var bad = fliphelper.fail[Math.floor(Math.random() * fliphelper.fail.length)]
 
-console.log(good)
 
 var phrases = [
     `\`${message.author.tag}\` flipped <@${user.id}> into a pile of ${good}!`,

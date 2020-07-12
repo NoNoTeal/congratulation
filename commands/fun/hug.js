@@ -7,6 +7,7 @@ module.exports = {
     command: true,
     guildOnly: true,
 cooldown: 5,
+description: 'Hug someone',
 async run(message) {
 
 

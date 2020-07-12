@@ -26,7 +26,7 @@ client.on('guildCreate', async (guild) => {
      client.destroy()
      throw new Error(`There is a guild limit of 1, just for the server I'm supposed to be in only one. Killing client until I am only in one guild`)
   }})
-  
+
   client.on('ready', async () => {
     if(botconfig.prefix.length >= 5) {
     client.destroy()
@@ -45,25 +45,6 @@ client.on('guildCreate', async (guild) => {
     else
     msg.delete()
     client.user.setPresence({activity: { name: `Version ${pkg.version}`}})
-  })
-
-  client.on('message', async (msg) => {
-    if(msg.author.bot) return
-    else
-    if(!msg.content.includes(`@someone`)) return
-    else
-    if(msg.channel instanceof Discord.DMChannel) return
-    else
-    var content = msg.content
-    let count = (content.match(/\@someone+/g) || []).length;
-    console.log(count)
-    if(count > 6 ) return
-    else
-    while (count > 0) {
-      count--
-      msg.channel.send(`\`${msg.guild.members.random().user.tag}\``)
-    }
-  
   })
 
 function cmdSetup() {
@@ -90,7 +71,8 @@ files.forEach(async (folder) => {
 cmdSetup()
 const cooldowns = new Discord.Collection();
 client.on('message', async (message) => {
-	if (!message.content.startsWith(prefix) || message.author.bot) return;
+  if (!message.content.startsWith(prefix) || message.author.bot) return;
+  if (/^>>>\s/.test(message.content)) return;
 
 	const args = message.content.slice(prefix.length).split(/\s+/);
   const commandName = args.shift().toLowerCase();
@@ -100,14 +82,6 @@ client.on('message', async (message) => {
 
   if (!command) return message.channel.send(`Invalid command do \`${prefix}help\` to get help.`)
   const cmdfile = client.cmdDir.get(command.name)
-
-  var blacklist = JSON.parse(fs.readFileSync("./commandhelper/blacklist.json", 'utf8'))
-  if(Object.keys(blacklist).length) {
-    var busers = blacklist.blacklist.users
-    for(var buser in busers) {
-      if(message.member.id == busers[buser]) return message.channel.send(`You're blacklisted.`)
-    }
-  } else
 
     if(command.guildOnly == true) {
       if(message.channel instanceof Discord.DMChannel) {

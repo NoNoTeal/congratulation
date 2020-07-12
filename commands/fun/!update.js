@@ -1,4 +1,3 @@
-const Discord = require(`discord.js`);
 const updater = require('discord-bot-updater');
 
 module.exports = {
@@ -6,15 +5,15 @@ module.exports = {
   group: "fun",
   command: true,
   guildOnly: true,
+  description: 'Update bot via github',
 cooldown: 5,
 async run(message) {
 
 if(message.author.id !== '329023088517971969') return 
 else
 
-updater.downloadRelease('nonoteal', 'congratulation', true, true, 0, ['./botconfig.json', './frusers.json','./commandhelper/rep.json', './commandhelper/blacklist.json']).then(r => {
+updater.downloadRelease('nonoteal', 'congratulation', true, true, 0, ['./botconfig.json']).then(r => {
   message.channel.send(`Attempting to reset bot.`)
-  console.log(r)
 var npm = "npm i"
 var run = "node ./";
 

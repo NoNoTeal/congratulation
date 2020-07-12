@@ -6,11 +6,9 @@ module.exports = {
     group: "fun",
     command: true,
     guildOnly: true,
+    description: 'Poke someone',
     cooldown: 5,
     async run(message) {
-if(message.channel instanceof Discord.DMChannel) return
-else
-
 if(message.member.roles.some(r => botconfig.trustedroles.includes(r.id)) !== true && botconfig.trustedroles !== null && !message.member.hasPermission(['ADMINISTRATOR'])) return message.channel.send(`no.`)
 else
 
