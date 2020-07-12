@@ -33,7 +33,6 @@ client.on('guildCreate', async (guild) => {
      throw new Error(`Prefix too long, shutting bot down.`)
   }else return})
 
-    
   client.on('ready', async () => {
     if(!client.guilds.get(botconfig.server)) {
     client.destroy()
