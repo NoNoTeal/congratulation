@@ -15,36 +15,6 @@ require("./util/eventhandler")(client)
 const pkg = require('./package.json')
 const fs = require('fs');
   client.login(botconfig.token)
-client.on('guildCreate', async (guild) => {
-    if(client.guilds.size > 1) {
-     guild.leave()
-     throw new Error(`There is a guild limit of 1, just for the server I'm supposed to be in. Leaving guild.`)
-  }})
-
-  client.on('ready', async () => {
-    if(client.guilds.size > 1) {
-     client.destroy()
-     throw new Error(`There is a guild limit of 1, just for the server I'm supposed to be in only one. Killing client until I am only in one guild`)
-  }})
-
-  client.on('ready', async () => {
-    if(botconfig.prefix.length >= 5) {
-    client.destroy()
-     throw new Error(`Prefix too long, shutting bot down.`)
-  }else return})
-
-  client.on('ready', async () => {
-    if(!client.guilds.get(botconfig.server)) {
-    client.destroy()
-     throw new Error(`Can't find the guild ID I was provided with! Shutting bot down.`)
-  }else return})
-
-  client.on('message', async (msg) => {
-    if(msg.content !== `${botconfig.prefix}version`) return
-    else
-    msg.delete()
-    client.user.setPresence({activity: { name: `Version ${pkg.version}`}})
-  })
 
 function cmdSetup() {
 var files = fs.readdirSync('./commands/').filter(n => n !== '.DS_Store')
@@ -53,7 +23,6 @@ files.forEach(async (folder) => {
   var filename = Object.keys(require('require-all')(__dirname + `/commands/${folder}`))
   for(var key in cmdfolder) {
   if(!cmdfolder[key].name) throw new Error(`Name all commands.`)
-  if(!cmdfolder[key].group) throw new Error(`Group command for: ${key.name}`)
   var file = require(`./commands/${folder}/${filename[key]}`)
   if(file.command !== true) continue
   else 
