@@ -1,5 +1,5 @@
 
-const botconfig = require(`../../botconfig.json`);
+
 
 module.exports = {
     name: "kill",
@@ -10,11 +10,8 @@ cooldown: 5,
 description: 'Minecraft Death Message.',
 async run(message) {
 
-if(message.member.roles.some(r => botconfig.trustedroles.includes(r.id)) !== true && botconfig.trustedroles !== null && !message.member.hasPermission(['ADMINISTRATOR'])) return message.channel.send(`Hmm, doesn't seem you have the role required to kill.`)
-else
-
-var args = message.content.split(' ').slice(1);
-var user = message.mentions.members.first() || message.guild.members.get(args[0])
+var args = message.content.split(/\s+/).slice(1);
+var user = message.mentions.members.first() || message.guild.members.cache.get(args[0])
 
 if(!user) return message.channel.send(`You need someone else to kill, please \`ping\` someone or use their \`ID\`!`)
 else

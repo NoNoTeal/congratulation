@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const botconfig = require(`../../botconfig.json`);
+
 
 module.exports = {
     name: "ban",
@@ -13,9 +13,7 @@ async run(message) {
   var args = message.content.split(/ +/).slice(1);
   let banReason = args.slice(1).join(' ');  
 
-  const user = message.mentions.members.first() || message.guild.members.get(args[0])
-  if(message.member.roles.some(r => botconfig.trustedroles.includes(r.id)) !== true && botconfig.trustedroles !== null && !message.member.hasPermission(['ADMINISTRATOR'])) return message.channel.send(`Hmm, doesn't seem you have the role required to ban.`)
-else
+  const user = message.mentions.members.first() || message.guild.members.cache.get(args[0])
 if(!user) return message.channel.send(`Invalid user!`).then(msg => {msg.delete(10000)}).then(message.delete(10)).catch(error => console.log(error));
 else
 if(user.id === message.client.user.id) return message.channel.send(`You can't ban me.`).then(msg => {msg.delete(10000)}).then(message.delete(10)).catch(error => console.log(error));
@@ -28,7 +26,7 @@ if(!banReason.length) {
     banReason = `*No Reason Provided*`
 }
 
-var embed = new Discord.RichEmbed()
+var embed = new Discord.MessageEmbed()
 .setTitle(`New Banned User`)
 .addField(`Moderator`, message.author)
 .addField(`Banned User`, user)

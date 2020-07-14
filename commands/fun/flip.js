@@ -1,4 +1,4 @@
-const botconfig = require(`../../botconfig.json`);
+
 const fliphelper = require(`../../phrases/fliphelper.json`)
 
 module.exports = {
@@ -10,11 +10,8 @@ module.exports = {
 cooldown: 5,
 async run(message) {
 
-if(message.member.roles.some(r => botconfig.trustedroles.includes(r.id)) !== true && botconfig.trustedroles !== null && !message.member.hasPermission(['ADMINISTRATOR'])) return message.channel.send(`Hmm, doesn't seem you have the role required to flip.`)
-else
-
-var args = message.content.split(' ').slice(1);
-var user = message.mentions.members.first() || message.guild.members.get(args[0])
+var args = message.content.split(/\s+/).slice(1);
+var user = message.mentions.members.first() || message.guild.members.cache.get(args[0])
 
 if(!user) return message.channel.send(`You need someone to flip, please \`ping\` someone or use their \`ID\`!`)
 else
@@ -22,7 +19,7 @@ else
 if(user.id == message.client.user.id) return message.channel.send(`I'm sorry, but I'm not a physical object to flip.`)
 else
 
-if(user.id == message.author.id) return message.channel.send(`You need to break the laws of physics to flip yourself.`)
+if(user.id == message.author.id) return message.channel.send(`You can't flip yourself.`)
 else
 
 var good = fliphelper.good[Math.floor(Math.random() * fliphelper.good.length)]

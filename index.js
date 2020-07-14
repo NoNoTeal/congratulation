@@ -1,5 +1,5 @@
 var Discord = require('discord.js')
-var thing = require('discord.js/src/util/Constants')
+var { DefaultOptions } = require('./node_modules/discord.js/src/util/Constants.js');
 var botconfig = require('./botconfig.json')
 var client = new Discord.Client({
     disableEveryone: true,
@@ -8,8 +8,8 @@ var client = new Discord.Client({
 client.commands = new Discord.Collection();
 client.cmdDir = new Discord.Collection();
 const prefix = botconfig.prefix.toLowerCase()
-if(botconfig.mobile == true) {
-thing.DefaultOptions.ws.properties.$browser = 'Discord iOS'
+if(botconfig.mobile === true) {
+DefaultOptions.ws.properties.$browser = 'Discord iOS'
 }
 require("./util/eventhandler")(client)
 const pkg = require('./package.json')

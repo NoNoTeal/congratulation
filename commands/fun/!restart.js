@@ -1,10 +1,7 @@
-const Discord = require(`discord.js`);
-
-  module.exports = {
+module.exports = {
     name: "restart",
     group: "fun",
     command: true,
-    guildOnly: true,
     description: 'Restart bot',
 cooldown: 5,
 async run(message) {

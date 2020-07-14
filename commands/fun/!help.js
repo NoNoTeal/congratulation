@@ -7,11 +7,7 @@ module.exports = {
 			group: "fun",
 			command: true,
 			description: 'Hello',
-	async run (message) {
-
-		if (message.member.roles.some(r => botconfig.trustedroles.includes(r.id)) !== true && botconfig.trustedroles !== null && !message.member.hasPermission(["ADMINISTRATOR"])) {
-			return message.channel.send(`Hmm, doesn't seem you have the role required to view help.`);
-		} else {
+			async run (message) {
 			var pr = botconfig.prefix
 			var commands = message.client.commands.array()
 			const args = message.content.split(/\s+/).slice(1);
@@ -33,28 +29,28 @@ module.exports = {
 					keys = Object.keys(json),
 					fc = 0
 			
-				  embed[groupKey] = new Discord.RichEmbed()
+				  embed[groupKey] = new Discord.MessageEmbed()
 				  .setTitle(`**${message.client.user.username}** commands`)
 				  .addField(`Version`, `${pkg.version}`)
 				  .addField(`Prefix`, `${pr}`)
 				  .setColor(0xff0000)
 				  .setTimestamp()
 				  p[groupKey] = embed[groupKey]
-				  embed[groupKey].setFooter(`Page ${groupKey.slice(4)}/${Math.ceil(keys.length / cpp)}`, message.author.avatarURL)
+				  embed[groupKey].setFooter(`Page ${groupKey.slice(4)}/${Math.ceil(keys.length / cpp)}`, message.author.avatarURL())
 				  return Object.keys(json).reduce((final, key) => {
 			
 					  if(counter === cpp) {
 					  counter = 0
 					  groupKey = `page${++pages}`
 					  final[groupKey] = {}
-					  embed[groupKey] = new Discord.RichEmbed()
+					  embed[groupKey] = new Discord.MessageEmbed()
 					  .setTitle(`**${message.client.user.username}** commands`)
 					  .addField(`Version`, `${pkg.version}`)
 					  .addField(`Prefix`, `${pr}`)
 					  .setColor(0xff0000)
 					  .setTimestamp()
 			
-					  embed[groupKey].setFooter(`Page ${groupKey.slice(4)}/${Math.ceil(keys.length / cpp)}`, message.author.avatarURL)
+					  embed[groupKey].setFooter(`Page ${groupKey.slice(4)}/${Math.ceil(keys.length / cpp)}`, message.author.avatarURL())
 					}
 		
 					if(json[key].private == true) { ++fc;return final}
@@ -102,32 +98,40 @@ module.exports = {
 						   if (page === 1) return
 						  page--;
 						  m.edit(json["page" + page])
-						  r.remove(message.author.id)
+						  if(m.channel instanceof Discord.GuildChannel) {
+						  r.reactions.cache.get(message.author.id).remove()
+						  }
 						  })
 					   fore.on('collect', async (r) => {
 						  if (page === json.length) return
 						  page++;
 						  m.edit(json["page" + page])
-						  r.remove(message.author.id)
+						  if(m.channel instanceof Discord.GuildChannel) {
+						  r.reactions.cache.get(message.author.id).remove()
+						  }
 					   })
 					   trash.on('collect', async () => {
 						  m.delete()
 					   })
 				  
 					   stop.on('collect', async (r) => {
+						if(m.channel instanceof Discord.GuildChannel) {
 						 if(m.deleted !== false) return
 						 else
-						 m.clearReactions();
+						 m.reactions.removeAll();
 						 trash.stop()
 						 fore.stop()
 						 back.stop()
 						 stop.stop()
+						}
 					   })
 				  
 					   setTimeout(async () => {
+						if(m.channel instanceof Discord.GuildChannel) {
 						 if(m.deleted !== false) return
 						 else
-						 m.clearReactions()
+						 m.reactions.removeAll()
+						}
 					   }, 60000);
 				  
 				  })}
@@ -141,8 +145,8 @@ module.exports = {
 		tempbed = new Discord.MessageEmbed()
 		.setTitle(`**${pr}${cmd.name}** information`)
 		.addField(`**Guild Only**`, cmd.guildOnly ? 'Yes' : 'No',true)
-		.addField(`**Cooldown**`, cmd.cooldown, true)
+		.addField(`**Cooldown**`, cmd.cooldown || 'None', true)
 		.addField(`**Private**`, cmd.private ? 'Yes' : 'No', true)
 		
 		message.channel.send(tempbed)
-			}}}
+			}}

@@ -1,5 +1,5 @@
 
-const botconfig = require(`../../botconfig.json`);
+
 module.exports = {
     name: "pat",
     group: "fun",
@@ -9,17 +9,13 @@ cooldown: 5,
 description: 'Pat someone',
 async run(message) {
 
-
-if(message.member.roles.some(r => botconfig.trustedroles.includes(r.id)) !== true && botconfig.trustedroles !== null && !message.member.hasPermission(['ADMINISTRATOR'])) return message.channel.send(`Hmm, doesn't seem you have the role required to pat.`)
-else
-
-var args = message.content.split(' ').slice(1);
-var user = message.mentions.members.first() || message.guild.members.get(args[0])
+var args = message.content.split(/\s+/).slice(1);
+var user = message.mentions.members.first() || message.guild.members.cache.get(args[0])
 
 if(!user) return message.channel.send(`You pat the air.`)
 else
 
-if(user.id == message.client.user.id) return message.channel.send(`m`)
+if(user.id == message.client.user.id) return message.channel.send(`\`Body.js\` wasn't found.`)
 else
 
 if(user.id == message.author.id) return message.channel.send(`You pat yourself.`)

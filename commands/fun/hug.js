@@ -1,5 +1,5 @@
 const Discord = require(`discord.js`);
-const botconfig = require(`../../botconfig.json`);
+
 
 module.exports = {
     name: "hug",
@@ -10,17 +10,13 @@ cooldown: 5,
 description: 'Hug someone',
 async run(message) {
 
-
-if(message.member.roles.some(r => botconfig.trustedroles.includes(r.id)) !== true && botconfig.trustedroles !== null && !message.member.hasPermission(['ADMINISTRATOR'])) return message.channel.send(`Hmm, doesn't seem you have the role required to hug.`)
-else
-
 var args = message.content.split(/\s+/).slice(1).join(' ')
 var useray = args.split(' | ').shift()
 var regex = /\d+/g
 var users = useray.match(regex)
 var c = []
 for(var user in users) {
-    if(!message.guild.members.get(users[user])) continue
+    if(!message.guild.members.cache.get(users[user])) continue
     if(users[user] == message.member.id) continue
     if(users[user] == message.guild.me.id) continue
     if(c.includes(`<@!${users[user]}>`) == true) continue

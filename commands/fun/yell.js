@@ -1,5 +1,5 @@
 const Discord = require(`discord.js`);
-const botconfig = require(`../../botconfig.json`);
+
 
 module.exports = {
     name: "yell",
@@ -9,11 +9,8 @@ module.exports = {
     cooldown: 5,
     description: 'Yell at someone',
 async run(message) {
-if(message.member.roles.some(r => botconfig.trustedroles.includes(r.id)) !== true && botconfig.trustedroles !== null && !message.member.hasPermission(['ADMINISTRATOR'])) return message.channel.send(`Hmm, doesn't seem you have the role required to call someone a yell.`)
-else
-
-var args = message.content.split(' ').slice(1);
-let user = message.mentions.members.first() || message.guild.members.get(args[0])
+var args = message.content.split(/\s+/).slice(1);
+let user = message.mentions.members.first() || message.guild.members.cache.get(args[0])
 
 if(!user) return message.channel.send(`Yell at someone, please \`ping\` someone or use their \`ID\`!`)
 else

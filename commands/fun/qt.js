@@ -1,5 +1,5 @@
 const Discord = require(`discord.js`);
-const botconfig = require(`../../botconfig.json`);
+
 
 module.exports = {
     name: "qt",
@@ -10,18 +10,15 @@ module.exports = {
     description: 'ur qt',
 async run(message) {
 
-if(message.member.roles.some(r => botconfig.trustedroles.includes(r.id)) !== true && botconfig.trustedroles !== null && !message.member.hasPermission(['ADMINISTRATOR'])) return message.channel.send(`Hmm, doesn't seem you have the role required to call someone a qt.`)
-else
-
-var args = message.content.split(' ').slice(1);
-let user = message.mentions.members.first() || message.guild.members.get(args[0])
+var args = message.content.split(/\s+/).slice(1);
+let user = message.mentions.members.first() || message.guild.members.cache.get(args[0])
 
 if(!user) return message.channel.send(`You need to call someone a qt, please \`ping\` someone or use their \`ID\`!`)
 else
 
-var nou = new Discord.RichEmbed()
+var nou = new Discord.MessageEmbed()
     .setTitle(`New QT Incoming ✨`)
-    .setAuthor(`${message.author.tag}`, message.author.avatarURL)
+    .setAuthor(`${message.author.tag}`, message.author.avatarURL())
     .addField(`QT Tag`, message.author)
     .addField(`ID`, message.author.id)
     .setColor(`#ff00bb`)
@@ -31,9 +28,9 @@ if(user.id == message.client.user.id) return message.channel.send(nou)
 else
 
 message.delete()
-var embed = new Discord.RichEmbed()
+var embed = new Discord.MessageEmbed()
     .setTitle(`New QT Incoming ✨`)
-    .setAuthor(`${user.user.tag}`, user.user.avatarURL)
+    .setAuthor(`${user.user.tag}`, user.user.avatarURL())
     .addField(`QT Tag`, user)
     .addField(`ID`, user.id)
     .setColor(`#ff00bb`)

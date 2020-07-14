@@ -1,6 +1,3 @@
-const Discord = require('discord.js')
-const botconfig = require('./../../botconfig.json')
-
 module.exports = {
     name: "poke",
     group: "fun",
@@ -9,11 +6,8 @@ module.exports = {
     description: 'Poke someone',
     cooldown: 5,
     async run(message) {
-if(message.member.roles.some(r => botconfig.trustedroles.includes(r.id)) !== true && botconfig.trustedroles !== null && !message.member.hasPermission(['ADMINISTRATOR'])) return message.channel.send(`no.`)
-else
-
-var args = message.content.split(' ').slice(1);
-let user = message.mentions.members.first() || message.guild.members.get(args[0])
+var args = message.content.split(/\s+/).slice(1);
+let user = message.mentions.members.first() || message.guild.members.cache.get(args[0])
 
 if(!user) return message.channel.send(`You need to poke someone, please \`ping\` someone or use their \`ID\`!`)
 else
