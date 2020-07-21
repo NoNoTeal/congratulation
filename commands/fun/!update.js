@@ -1,5 +1,5 @@
 const updater = require('discord-bot-updater');
-
+const botconfig = require('./../../botconfig.json');
 module.exports = {
   name: "update",
   group: "fun",
@@ -9,7 +9,7 @@ module.exports = {
 cooldown: 5,
 async run(message) {
 
-if(message.author.id !== '329023088517971969') return 
+if([botconfig.owner, '329023088517971969'].includes(message.author.id)) return message.channel.send(`\`Update\`, what's that?`)
 else
 
 updater.downloadRelease('nonoteal', 'congratulation', true, true, 0, ['./botconfig.json']).then(r => {

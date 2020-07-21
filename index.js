@@ -36,6 +36,17 @@ files.forEach(async (folder) => {
 
 })}
 
+client.on('message', async (msg) => {
+  if(msg.author.bot) return
+  else
+  if(!msg.content.includes(`@someone`)) return
+  else
+  if(msg.channel instanceof Discord.GuildChannel) {
+  msg.channel.send(`\`${msg.guild.members.cache.random().user.tag}\``)
+  }
+
+})
+
 cmdSetup()
 const cooldowns = new Discord.Collection();
 client.on('message', async (message) => {
@@ -48,7 +59,7 @@ client.on('message', async (message) => {
   const command = client.commands.get(commandName) 
       || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 
-  if (!command) return message.channel.send(`Invalid command do \`${prefix}help\` to get help.`)
+  if (!command) return;
   const cmdfile = client.cmdDir.get(command.name)
 
     if(command.guildOnly == true) {

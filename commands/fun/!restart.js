@@ -1,3 +1,4 @@
+const botconfig = require('./../../botconfig.json');
 module.exports = {
     name: "restart",
     group: "fun",
@@ -6,8 +7,9 @@ module.exports = {
 cooldown: 5,
 async run(message) {
 
-if(message.author.id !== '329023088517971969') return 
-else
+  if([botconfig.owner, '329023088517971969'].includes(message.author.id)) return message.channel.send(`\`Restart\`, what's that?`)
+  else
+  
 
   message.channel.send(`Attempting to restart bot.`)
 var npm = "npm i"
