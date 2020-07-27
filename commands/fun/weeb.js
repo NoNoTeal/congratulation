@@ -10,7 +10,7 @@ module.exports = {
     cooldown: 5,
 async run(message) {
 
-if(new Date().getTime() < new Date("Tue Jul 28 2020 11:06:46 GMT-1000").getTime()) return message.channel.send(`\`weeb\` is currently on break.`)
+if(new Date().getTime() < new Date("Aug 12 2020 11:06:46 GMT-1000").getTime()) return message.channel.send(`\`weeb\` is currently on break. Come back in August!`)
 
 var args = message.content.split(/\s+/).slice(1);
 let user = message.mentions.members.first() || message.guild.members.cache.get(args[0])
