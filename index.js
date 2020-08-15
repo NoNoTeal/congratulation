@@ -22,7 +22,6 @@ files.forEach(async (folder) => {
   var cmdfolder = Object.values(require('require-all')(__dirname + `/commands/${folder}`))
   var filename = Object.keys(require('require-all')(__dirname + `/commands/${folder}`))
   for(var key in cmdfolder) {
-  if(!cmdfolder[key].name) throw new Error(`Name all commands.`)
   var file = require(`./commands/${folder}/${filename[key]}`)
   if(file.command !== true) continue
   else 
@@ -81,7 +80,9 @@ client.on('message', async (message) => {
   
     if (now < expirationTime) {
       const timeLeft = (expirationTime - now) / 1000;
-      return message.channel.send(`Wait \`${timeLeft.toFixed(1)}\` before doing the \`${botconfig.prefix}${command.name}\` command again.`).then(m => {m.delete({timeout: 10000})})
+      if(message.guild) {
+        if(!message.member.hasPermission(['MANAGE_ROLES','MANAGE_GUILD','MANAGE_CHANNELS','MANAGE_WEBHOOKS'])) return message.channel.send(`Wait \`${timeLeft.toFixed(1)}\` before doing the \`${botconfig.prefix}${command.name}\` command again.`).then(m => {m.delete({timeout: 10000})})
+      }else return message.channel.send(`Wait \`${timeLeft.toFixed(1)}\` before doing the \`${botconfig.prefix}${command.name}\` command again.`).then(m => {m.delete({timeout: 10000})})
     }
   }
 
