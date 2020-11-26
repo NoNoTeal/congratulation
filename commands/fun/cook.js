@@ -1,4 +1,5 @@
 const cookhelper = require(`../../phrases/cookhelper.json`);
+const Util = require("../../util/util");
 
 module.exports = {
     name: "cook",
@@ -10,9 +11,9 @@ cooldown: 5,
 async run(message) {
 
     var args = message.content.split(/\s+/).slice(1);
-    let user = message.mentions.members.first() || message.guild.members.cache.get(args[0])
+    let user = await Util.userParsePlus(message, args, 'member');
     
-    if(!user) return message.channel.send(`You need to call someone a qt, please \`ping\` someone or use their \`ID\`!`)
+    if(!user) return message.channel.send(`You need to cook, please \`ping\` someone or use their \`ID\`!`)
     else
 
     if(user.id == message.client.user.id) return message.channel.send(`I'm sorry, but I'm not an object.`)

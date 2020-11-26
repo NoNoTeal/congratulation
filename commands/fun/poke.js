@@ -1,3 +1,5 @@
+const Util = require("../../util/util");
+
 module.exports = {
     name: "poke",
     group: "fun",
@@ -7,13 +9,13 @@ module.exports = {
     cooldown: 5,
     async run(message) {
 var args = message.content.split(/\s+/).slice(1);
-let user = message.mentions.members.first() || message.guild.members.cache.get(args[0])
+let user = await Util.userParsePlus(message, args, 'member');
 
 if(!user) return message.channel.send(`You need to poke someone, please \`ping\` someone or use their \`ID\`!`)
 else
 
-if(user.id == message.client.user.id) return message.channel.send(`<@${message.author.id}>, POKE! ||From Blast :)||`)
+if(user.id == message.client.user.id) return message.channel.send(`<@${message.author.id}>👈${message.client.user}`)
 else
-message.channel.send(`<@${user.id}>, POKE! ||From ${message.author.username}||`)
+message.channel.send(`<@${user.id}>👈${message.author.username}`)
     }
 }

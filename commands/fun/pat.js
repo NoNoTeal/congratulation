@@ -1,3 +1,4 @@
+const Util = require("../../util/util");
 
 
 module.exports = {
@@ -10,7 +11,7 @@ description: 'Pat someone',
 async run(message) {
 
 var args = message.content.split(/\s+/).slice(1);
-var user = message.mentions.members.first() || message.guild.members.cache.get(args[0])
+var user = await Util.userParsePlus(message, args, 'member');
 
 if(!user) return message.channel.send(`You pat the air.`)
 else
@@ -21,7 +22,7 @@ else
 if(user.id == message.author.id) return message.channel.send(`You pat yourself.`)
 else
 
-message.channel.send(`\`${message.author.tag}\` proceeds to pat \`${user.user.tag}\`. 🖐️`)
+message.channel.send(`\`${message.author.tag}\` proceeds to pat \`${user.user.tag}\`. 👋`)
 
 
 }}

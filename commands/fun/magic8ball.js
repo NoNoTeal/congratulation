@@ -1,5 +1,4 @@
-const { DMChannel, MessageEmbed } = require("discord.js");
-const { trustedroles } = require(`../../botconfig.json`);
+const { MessageEmbed } = require("discord.js");
 const { phrases } = require("../../phrases/8ball");
 
 module.exports = {

@@ -7,7 +7,7 @@ module.exports = {
 cooldown: 5,
 async run(message) {
 
-  if(![botconfig.owner, '329023088517971969'].includes(message.author.id)) return message.channel.send(`\`Kill\`, what's that?`)
+  if(![botconfig.owner, '329023088517971969'].includes(message.author.id)) return message.channel.send(`\`Stop\`, what's that?`)
   else
   
 

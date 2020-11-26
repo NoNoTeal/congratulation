@@ -1,4 +1,5 @@
 const Discord = require(`discord.js`);
+const Util = require("../../util/util");
 
 
 module.exports = {
@@ -11,7 +12,7 @@ module.exports = {
 async run(message) {
 
 var args = message.content.split(/\s+/).slice(1);
-let user = message.mentions.members.first() || message.guild.members.cache.get(args[0])
+let user =await Util.userParsePlus(message, args, 'member');
 
 if(!user) return message.channel.send(`You need to call someone a qt, please \`ping\` someone or use their \`ID\`!`)
 else

@@ -1,5 +1,5 @@
 
-var botconfig = require('./../../botconfig.json')
+const Util = require('../../util/util');
 
 module.exports = {
     name: "throw",
@@ -10,7 +10,7 @@ module.exports = {
     cooldown: 5,
     async run(message) {
         var args = message.content.split(/\s+/).slice(1);
-        let user = message.mentions.members.first() || message.guild.members.cache.get(args[0])
+        let user = await Util.userParsePlus(message, args, 'member');
         
         if(!user) return message.channel.send(`You need someone to throw, please \`ping\` someone or use their \`ID\`!`)
         else

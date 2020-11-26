@@ -1,4 +1,5 @@
 const Discord = require(`discord.js`);
+const Util = require("../../util/util");
 
 
 module.exports = {
@@ -8,15 +9,19 @@ module.exports = {
     guildOnly: true,
     cooldown: 5,
     description: 'Yell at someone',
+/**
+ * 
+ * @param {Discord.Message} message 
+ */
 async run(message) {
 var args = message.content.split(/\s+/).slice(1);
-let user = message.mentions.members.first() || message.guild.members.cache.get(args[0])
+let user = await Util.userParsePlus(message, args, 'member');
 
 if(!user) return message.channel.send(`Yell at someone, please \`ping\` someone or use their \`ID\`!`)
 else
 
 var phrases = [
-    `\`${user.user.tag}\` is getting yelled at by ${message.author} over \`someone\``,
+    `\`${user.user.tag}\` is getting yelled at by ${message.author} over \`${message.guild.members.cache.random().user.tag}\``,
     `\`${user.user.tag}\` is getting yelled at by ${message.author}`
     ]
 
