@@ -1,7 +1,9 @@
 var config = require("../botconfig.json")
 var pkg = require('../package.json')
 module.exports = bot => {
-    console.log(`${bot.user.username} is online`)
+    console.log(`${bot.user.username} is online:
+    https://discordapp.com/oauth2/authorize?client_id=${bot.user.id}&scope=bot&permissions=0
+    `)
 
     bot.user.setStatus(`online`);
 

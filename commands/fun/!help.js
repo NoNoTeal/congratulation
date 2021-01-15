@@ -7,6 +7,7 @@ module.exports = {
 			group: "fun",
 			command: true,
 			description: 'Hello',
+			cooldown: 5,
 			async run (message) {
 			var pr = botconfig.prefix
 			var commands = message.client.commands.array()

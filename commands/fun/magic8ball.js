@@ -7,6 +7,7 @@ module.exports = {
     command: true,
 	guildOnly: true,
 	description: 'Ask the 8ball a question',
+	cooldown: 5,
     async run(message) {
 
 		let args = message.content.split(" ").slice(1);
